@@ -769,17 +769,17 @@ phosh_layer_surface_set_layer (PhoshLayerSurface *self, guint32 layer)
   g_return_if_fail (PHOSH_IS_LAYER_SURFACE (self));
   priv = phosh_layer_surface_get_instance_private (self);
 
-  if (priv->layer == layer) {
-    return;
-  }
-
-  priv->layer = layer;
-
   /* Check env var override */
   const char *env = g_getenv("SQUEEKBOARD_LAYER");
   if (env && g_strcmp0(env, "overlay") == 0) {
     layer = 3; // ZWLR_LAYER_SHELL_V1_LAYER_OVERLAY
   }
+  
+  if (priv->layer == layer) {
+    return;
+  }
+
+  priv->layer = layer;
 
   if (priv->layer_surface) {
     zwlr_layer_surface_v1_set_layer (priv->layer_surface, layer);
