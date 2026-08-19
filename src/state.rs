@@ -399,8 +399,6 @@ Outcome:
                         denominator: 65,
                     });
 
-                let target_height_px = (px_size.height as f64 * 0.3).ceil() as u32;
-
                 // Reduce height to match what the layout can fill.
                 // For this, we need to guess if normal or wide will be picked up.
                 // This must match `eek_gtk_keyboard.c::get_type`.
@@ -429,10 +427,7 @@ Outcome:
                 };
 
                 let height
-                    = cmp::min(
-                        target_height_px,
-                        (height_as_widths * px_size.width as i32).ceil() as u32,
-                    );
+                    = (height_as_widths * px_size.width as i32).ceil() as u32;
 
                 (
                     PixelSize {
