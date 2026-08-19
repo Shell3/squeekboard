@@ -399,18 +399,7 @@ Outcome:
                         denominator: 65,
                     });
 
-                // Based on what works on the L5.
-                // Exceeding that probably wastes space. Reducing makes typing harder.
-                const IDEAL_TARGET_SIZE: Rational<Millimeter> = Rational {
-                    numerator: Millimeter(948),
-                    denominator: 100,
-                };
-
-                // TODO: calculate based on selected layout
-                const ROW_COUNT: u32 = 4;
-
-                let ideal_height = IDEAL_TARGET_SIZE * ROW_COUNT as i32;
-                let ideal_height_px = (ideal_height * density).ceil().0 as u32;
+                let target_height_px = (px_size.height as f64 * 0.3).ceil() as u32;
 
                 // Reduce height to match what the layout can fill.
                 // For this, we need to guess if normal or wide will be picked up.
@@ -441,7 +430,7 @@ Outcome:
 
                 let height
                     = cmp::min(
-                        ideal_height_px,
+                        target_height_px,
                         (height_as_widths * px_size.width as i32).ceil() as u32,
                     );
 
